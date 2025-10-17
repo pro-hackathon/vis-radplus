@@ -303,7 +303,6 @@ def _():
         return m
 
     _()
-
     return
 
 
@@ -315,9 +314,7 @@ def _():
         import numpy as np
         from folium.plugins import MeasureControl
 
-        # Load GeoJSON
-        with open("radhackathon.daten/rad+potsdam/p-straßensegmente/data.json") as f:
-            geojson_data = json.load(f)
+
 
         # Center map around Potsdam
         map_center = [52.398, 13.065]
@@ -330,6 +327,9 @@ def _():
             primary_area_unit='sqmeters'
         ))
 
+        # Load GeoJSON
+        with open("radhackathon.daten/rad+potsdam/p-straßensegmente/data.json") as f:
+            geojson_data = json.load(f)
         # Extract min/max values for scaling
         route_counts = [feat["properties"].get("route_count", 0) for feat in geojson_data["features"]]
         speeds = [feat["properties"].get("speed", 0) for feat in geojson_data["features"]]
@@ -340,7 +340,7 @@ def _():
         # 🔥 Continuous blue→red color scale for speed
         colormap = LinearColormap(
             #colors=["blue", "cyan", "yellow", "orange", "red"],
-            colors=["#440154", "#3B528B", "#21918C", "#5DC863", "#FDE725"],  # vivid viridis-like
+            colors=["#440154", "#21918C", "#FDE725"],  # vivid viridis-like
             vmin=min_speed,
             vmax=max_speed
         )
@@ -374,13 +374,15 @@ def _():
                     )
                 ).add_to(m)
 
+
+
+
         # Save or display
         m.save("map_scaled_colored.html")
         return m
 
 
     _()
-
     return
 
 
@@ -467,10 +469,15 @@ def _(df):
 
 
 @app.cell
-def _(MarkerCluster, filtered_df, folium):
+def _(MarkerCluster, filtered_df, pd):
     from folium import Icon
+    from folium.features import DivIcon
 
     def display_accidents_with_fatal_icon(filtered_df):
+        import json, folium
+        from branca.colormap import LinearColormap
+        import numpy as np
+        from folium.plugins import MeasureControl
         # Lookup dictionaries for mapped columns
         UKATEGORIE_MAP = {
             1: "Accident with persons killed",
@@ -517,8 +524,12 @@ def _(MarkerCluster, filtered_df, folium):
         # Initialize map
         map_center = [52.398, 13.065]
         m = folium.Map(location=map_center, zoom_start=12)
-        marker_cluster = MarkerCluster().add_to(m)
+        # Feature group for deaths (always visible)
+        deaths_layer = folium.FeatureGroup(name="Deaths", show=True)
 
+        # MarkerCluster for non-fatal accidents
+        accidents_cluster = MarkerCluster(name="Accidents").add_to(m)
+    
         for _, row in filtered_df.iterrows():
             # Build popup HTML
             popup_html = "<b>Accident Details:</b><br>"
@@ -535,31 +546,36 @@ def _(MarkerCluster, filtered_df, folium):
                     value = row[col]
                 popup_html += f"{col}: {value}<br>"
 
-            # Use death icon for fatal accidents, circle marker otherwise
+
+
             if int(row["UKATEGORIE"]) == 1:
+                # Fatal accident
+                emoji = "💀"
                 folium.Marker(
                     location=[row["YGCSWGS84"], row["XGCSWGS84"]],
-                    icon=Icon(icon="skull-crossbones", prefix="fa", color="black"),
+                    icon=DivIcon(
+                        icon_size=(30, 30),
+                        icon_anchor=(15, 15),
+                        html=f"<div style='font-size:24px'>{emoji}</div>"
+                    ),
                     popup=folium.Popup(popup_html, max_width=300)
-                ).add_to(m)
+                ).add_to(deaths_layer)
             else:
-                # Non-fatal accident: adjust color and size
-                if int(row["UKATEGORIE"]) == 2:
-                    color = "red"      # major accidents
-                    radius = 8         # slightly larger
-                else:
-                    color = "yellow"   # slight accidents
-                    radius = 8         # smaller
-
-            
-                folium.CircleMarker(
+                # Non-fatal accident
+                emoji = "🤕" if row["UKATEGORIE"] == 2 else "🥴"
+                folium.Marker(
                     location=[row["YGCSWGS84"], row["XGCSWGS84"]],
-                    radius=radius,
-                    color=color,
-                    fill=True,
-                    fill_opacity=0.6,
+                    icon=DivIcon(
+                        icon_size=(30, 30),
+                        icon_anchor=(15, 15),
+                        html=f"<div style='font-size:20px'>{emoji}</div>"
+                    ),
                     popup=folium.Popup(popup_html, max_width=300)
-                ).add_to(marker_cluster)
+                ).add_to(accidents_cluster)
+
+        # Add deaths layer separately
+        deaths_layer.add_to(m)
+
 
         # 1️⃣ Base layer: Stadia Alidade Smooth
         folium.TileLayer(
@@ -584,11 +600,125 @@ def _(MarkerCluster, filtered_df, folium):
             overlay=True,   # Important: this is a toggleable overlay
             control=True
         ).add_to(m)
-    
+
+        # Load CSV
+        df = pd.read_csv("merged_knoten_data.csv")
+
+        # FeatureGroup for toggle
+        knoten_layer = folium.FeatureGroup(name="Traffic Counts").add_to(m)
+
+        for _, row in df.iterrows():
+            lat, lon = map(float, row["Geo Point"].split(","))
+
+            # Non-linear scaling for size
+            size = 15 + (row["Summe"] ** 0.5) / 2  # adjust 15/base and /2 as needed
+
+            popup_html = f"<b>{row['Name']}</b><br>Year: {row['Jahr']}<br>Count: {row['Summe']}"
+
+            # Use Unicode pin instead of FontAwesome
+            folium.Marker(
+                location=[lat, lon],
+                icon=DivIcon(
+                    icon_size=(size, size),
+                    icon_anchor=(size//2, size),  # anchor at bottom
+                    html=f"""<div style="font-size:{size}px; line-height:1; color:green;">
+                                📍
+                             </div>"""
+                ),
+                popup=folium.Popup(popup_html, max_width=250)
+            ).add_to(knoten_layer)
+        # Load the new CSV
+        df_bruecken = pd.read_csv("bruecken_sums_yearly.csv")
+        # Convert two-digit years to full years
+        def full_year(y):
+            y = int(y)
+            if y < 50:      # assume 00–49 → 2000–2049
+                return 2000 + y
+            else:           # assume 50–99 → 1950–1999
+                return 1900 + y
+
+        df_bruecken["year_full"] = df_bruecken["year"].apply(full_year)
+
+        # Filter only newest year
+        df_latest = df_bruecken.loc[df_bruecken.groupby("bridge_name")["year_full"].idxmax()]
+
+        # Add these points to the existing knoten_layer
+        for _, row in df_latest.iterrows():
+            lat, lon = row["latitude"], row["longitude"]
+
+            # Scale size relative to sum_value (same formula as before)
+            size = 15 + (row["sum_value"] ** 0.5) / 2  # adjust scaling if needed
+
+            popup_html = f"<b>{row['bridge_name'].title()}</b><br>Year: {row['year_full']}<br>Sum: {row['sum_value']}"
+
+            folium.Marker(
+                location=[lat, lon],
+                icon=DivIcon(
+                    icon_size=(size, size),
+                    icon_anchor=(size//2, size),
+                    html=f"""<div style="font-size:{size}px; line-height:1; color:green;">
+                                📍
+                             </div>"""
+                ),
+                popup=folium.Popup(popup_html, max_width=250)
+            ).add_to(knoten_layer)
+
+        # Load GeoJSON
+        with open("radhackathon.daten/rad+potsdam/p-straßensegmente/data.json") as f:
+            geojson_data = json.load(f)
+        # Extract min/max values for scaling
+        route_counts = [feat["properties"].get("route_count", 0) for feat in geojson_data["features"]]
+        speeds = [feat["properties"].get("speed", 0) for feat in geojson_data["features"]]
+
+        min_count, max_count = min(route_counts), max(route_counts)
+        min_speed, max_speed = min(speeds), max(speeds)
+
+        # 🔥 Continuous blue→red color scale for speed
+        colormap = LinearColormap(
+            #colors=["blue", "cyan", "yellow", "orange", "red"],
+            #colors=["#440154", "#21918C", "#FDE725"],  # vivid viridis-like
+            #colors = ["#0009AF", "#7300FF", "#E82F9E"],
+            colors = ["blue", "yellow", "red"],
+            vmin=min_speed,
+            vmax=max_speed
+        )
+        colormap.caption = "Average Speed (km/h)"
+        colormap.add_to(m)
+
+        # Function for non-linear thickness scaling (logarithmic)
+        def scaled_thickness(value):
+            if value <= 0:
+                return 1
+            return 1 + 10 * np.log10(value - min_count + 1) / np.log10(max_count - min_count + 2)
+            normalized = (value - min_count) / (max_count - min_count)
+            return 1 + 10 * (normalized ** 1.5)  # exponent >1 emphasizes bigger values
+
+        # Draw features manually for better control
+        for feat in geojson_data["features"]:
+            props = feat["properties"]
+            geom = feat["geometry"]
+
+            count = props.get("route_count", 0)
+            speed = 10 if props.get("speed", 0) < 10 else props.get("speed", 0)
+            weight = scaled_thickness(count)
+            color = colormap(speed)
+
+            if geom["type"] == "LineString":
+                folium.PolyLine(
+                    locations=[[lat, lon] for lon, lat in geom["coordinates"]],
+                    color=color,
+                    weight=weight,
+                    opacity=0.8,
+                    tooltip=folium.Tooltip(
+                        f"Route Count: {count}<br>Speed: {props.get("speed", 0):.1f} km/h"
+                    )
+                ).add_to(m)
+
         # Optional: add layer control
         folium.LayerControl().add_to(m)
         # Save map
         m.save("potsdam_bicycle_accidents_fatal_icon_map.html")
+        print("Done")
 
         return m
 
@@ -706,7 +836,7 @@ def _(MarkerCluster, filtered_df, folium):
             overlay=True,   # Important: this is a toggleable overlay
             control=True
         ).add_to(m)
-    
+
         # Optional: add layer control
         folium.LayerControl().add_to(m)
         # Save map as HTML
