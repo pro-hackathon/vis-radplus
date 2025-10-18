@@ -306,7 +306,7 @@ def _(json, np, pd):
 
 
 @app.cell
-def _(LinearColormap, folium, np):
+def _(LinearColormap, folium):
     def add_radplus_data(m, radplus_layer, radplus_data, speed_column="speed_median", min_count_threshold=50, speed_threshold=None):
         """
         Add DB Rad+ road segment data as a Folium layer.
@@ -339,11 +339,18 @@ def _(LinearColormap, folium, np):
             colormap.caption = f"Average Speed ({speed_column}) [km/h]"
             colormap.add_to(m)
 
-        # ⚖️ Nonlinear scaling for line thickness
-        def scaled_thickness(value):
-            if value <= 0:
-                return 1
-            return 1 + 10 * np.log10(value - min_count + 1) / np.log10(max_count - min_count + 2)
+        def scaled_thickness(value, min_count=200, max_count=40000, min_width=1, max_width=25):
+            """
+            Scale line thickness linearly from min_width to max_width
+            based on value between min_count and max_count.
+            """
+            if value <= min_count:
+                return min_width
+            elif value >= max_count:
+                return max_width
+            else:
+                # linear interpolation
+                return min_width + (value - min_count) / (max_count - min_count) * (max_width - min_width)
 
         # 🛣️ Draw each segment
         for _, row in radplus_data.iterrows():
@@ -353,8 +360,10 @@ def _(LinearColormap, folium, np):
 
             speed_value = row.get(speed_column, 0)
             color = colormap(speed_value)
-            weight = scaled_thickness(row["route_count"])
-
+            if not speed_threshold:
+                weight = scaled_thickness(row["route_count"], min_count, max_count)
+            else:
+                weight = scaled_thickness(row["route_count"], min_count, max_count, min_width=2, max_width=10)
             # 📊 Tooltip with all available speed stats
             tooltip_text = (
                 f"<b>Route Count:</b> {row['route_count']}<br>"
@@ -485,11 +494,11 @@ def _(
         ####### Add DB RadPlus data
         # Options: "speed", "speed_min", "speed_25", "speed_median", "speed_75", "speed_max"
         # 🎨 Create feature layer
-        radplus_layer_mean = folium.FeatureGroup(name=f"DB Rad+ (Mean, >200)").add_to(m)
-        add_radplus_data(m, radplus_layer_mean, radplus_data, "speed", min_count_threshold=200)
+        radplus_layer_mean = folium.FeatureGroup(name=f"DB Rad+ (Mean, >100)").add_to(m)
+        add_radplus_data(m, radplus_layer_mean, radplus_data, "speed", min_count_threshold=100)
 
-        radplus_layer_median = folium.FeatureGroup(name=f"DB Rad+ (Med<10, >200)").add_to(m)
-        add_radplus_data(m, radplus_layer_median, radplus_data, "speed_median", min_count_threshold=200, speed_threshold=10)
+        radplus_layer_median = folium.FeatureGroup(name=f"DB Rad+ (Med<10, >100)").add_to(m)
+        add_radplus_data(m, radplus_layer_median, radplus_data, "speed_median", min_count_threshold=100, speed_threshold=10)
 
         unlit_layer = add_unlit_bike_paths(m, "unbeleuchteteRadWege.geojson", "Unlit Bike Paths")
 
