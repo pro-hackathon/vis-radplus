@@ -485,14 +485,14 @@ def _(mo):
     Im Zeitraum **2023–2024** wurden **745 Unfälle** mit Fahrradbeteiligung registriert, davon ereigneten sich **687 leichte**, **56 schwere** und **2 tödliche Unfälle**. 
 
     Dies entspricht einem Durchschnitt von etwa **ein Unfall pro Tag** – mit tragischerweise **einem tödlichen Unfall pro Jahr**.
-
-    <p style="text-align:center;">
-
-    ![](public/image.png)  
-
-    </p>
     """
     )
+    return
+
+
+@app.cell
+def _(mo):
+    mo.image(src="Bild3.png")
     return
 
 
