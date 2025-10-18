@@ -237,24 +237,48 @@ def _(json, pd):
 
 @app.cell
 def _(json, np, pd):
-    # assuming df["speeds"] is a list/array of numeric values for each row
-    def summarize_speeds(speeds):
-        if not speeds or len(speeds) == 0:
+    def summarize_speed_histogram(hist_counts):
+        """
+        Given a histogram of counts per speed bin (0..29 km/h),
+        return min, 25%, median, 75%, max, and mean speeds.
+        """
+        print("Histogram length:", len(hist_counts))  # should be 30
+
+        if not hist_counts or sum(hist_counts) == 0:
             return pd.Series({
                 "speed_min": np.nan,
                 "speed_25": np.nan,
                 "speed_median": np.nan,
+                "speed_mean": np.nan,
                 "speed_75": np.nan,
                 "speed_max": np.nan
             })
-        speeds = np.array(speeds)
+    
+        # Create the speed bins array: 0, 1, 2, ..., len(hist_counts)-1
+        bins = np.arange(len(hist_counts))
+        counts = np.array(hist_counts)
+    
+        # Compute cumulative distribution
+        cum_counts = np.cumsum(counts)
+        total = cum_counts[-1]
+    
+        # Helper function to find speed at a given percentile
+        def percentile(p):
+            idx = np.searchsorted(cum_counts, p * total / 100)
+            return bins[min(idx, len(bins)-1)]
+    
+        # Weighted mean
+        mean_speed = np.sum(bins * counts) / total
+    
         return pd.Series({
-            "speed_min": np.min(speeds),
-            "speed_25": np.percentile(speeds, 25),
-            "speed_median": np.median(speeds),
-            "speed_75": np.percentile(speeds, 75),
-            "speed_max": np.max(speeds)
+            "speed_min": bins[np.argmax(counts > 0)],
+            "speed_25": percentile(25),
+            "speed_median": percentile(50),
+            "speed_mean": mean_speed,
+            "speed_75": percentile(75),
+            "speed_max": bins[np.max(np.where(counts > 0))]
         })
+
 
 
 
@@ -269,7 +293,7 @@ def _(json, np, pd):
         df.columns = df.columns.str.replace("geometry.", "", regex=False)
     
         # Apply the summary function to each row
-        df = pd.concat([df, df["speeds"].apply(summarize_speeds)], axis=1)
+        df = pd.concat([df, df["speeds"].apply(summarize_speed_histogram)], axis=1)
         # Display summary statistics
         print(df.describe())
 
@@ -311,8 +335,9 @@ def _(LinearColormap, folium, np):
             vmin=min_speed,
             vmax=max_speed
         )
-        colormap.caption = f"Average Speed ({speed_column}) [km/h]"
-        colormap.add_to(m)
+        if not speed_threshold:
+            colormap.caption = f"Average Speed ({speed_column}) [km/h]"
+            colormap.add_to(m)
 
         # ⚖️ Nonlinear scaling for line thickness
         def scaled_thickness(value):
@@ -343,7 +368,7 @@ def _(LinearColormap, folium, np):
 
             folium.PolyLine(
                 locations=[[lat, lon] for lon, lat in coords],
-                color=color,
+                color=color if not speed_threshold else "blue",
                 weight=weight,
                 opacity=0.8,
                 tooltip=folium.Tooltip(tooltip_text)
@@ -351,6 +376,40 @@ def _(LinearColormap, folium, np):
 
 
     return (add_radplus_data,)
+
+
+@app.cell
+def _(folium, json):
+    def add_unlit_bike_paths(m, geojson_file="unbeleuchteteRadWege.geojson", layer_name="Unlit Bike Paths"):
+        """
+        Add unlit bicycle paths from a GeoJSON file to a Folium map as a separate layer.
+        """
+        # Create a feature group for toggling
+        unlit_layer = folium.FeatureGroup(name=f"{layer_name} 🛣️").add_to(m)
+
+        # Load GeoJSON
+        with open(geojson_file, "r", encoding="utf-8") as f:
+            geojson_data = json.load(f)
+
+        # Add each LineString feature
+        for feat in geojson_data["features"]:
+            geom = feat["geometry"]
+            props = feat.get("properties", {})
+        
+            if geom["type"] == "LineString":
+                folium.PolyLine(
+                    locations=[[lat, lon] for lon, lat in geom["coordinates"]],
+                    color="darkblue",          # pick a color that stands out
+                    weight=5,                  # thickness of the line
+                    opacity=0.7,
+                    tooltip=folium.Tooltip(
+                        f"Surface: {props.get('surface', 'n/a')}<br>"
+                        f"Segregated: {props.get('segregated', 'n/a')}<br>"
+                        f"Traffic sign: {props.get('traffic_sign', 'n/a')}"
+                    )
+                ).add_to(unlit_layer)
+        return unlit_layer
+    return (add_unlit_bike_paths,)
 
 
 @app.cell
@@ -371,6 +430,7 @@ def _(
     add_accident_data,
     add_knoten_data,
     add_radplus_data,
+    add_unlit_bike_paths,
     filtered_df,
     folium,
     radplus_data,
@@ -425,11 +485,13 @@ def _(
         ####### Add DB RadPlus data
         # Options: "speed", "speed_min", "speed_25", "speed_median", "speed_75", "speed_max"
         # 🎨 Create feature layer
-        #radplus_layer_mean = folium.FeatureGroup(name=f"DB Rad+ (Mean, >200)").add_to(m)
-        #add_radplus_data(m, radplus_layer_mean, radplus_data, "speed", min_count_threshold=200)
+        radplus_layer_mean = folium.FeatureGroup(name=f"DB Rad+ (Mean, >200)").add_to(m)
+        add_radplus_data(m, radplus_layer_mean, radplus_data, "speed", min_count_threshold=200)
 
         radplus_layer_median = folium.FeatureGroup(name=f"DB Rad+ (Med<10, >200)").add_to(m)
         add_radplus_data(m, radplus_layer_median, radplus_data, "speed_median", min_count_threshold=200, speed_threshold=10)
+
+        unlit_layer = add_unlit_bike_paths(m, "unbeleuchteteRadWege.geojson", "Unlit Bike Paths")
 
         # Add layer control
         folium.LayerControl().add_to(m)
