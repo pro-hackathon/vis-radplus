@@ -17,7 +17,18 @@ def _():
     import pandas as pd
     from folium import Icon
     from folium.features import DivIcon
-    return DivIcon, LinearColormap, MarkerCluster, folium, json, mo, np, pd
+    from pathlib import Path
+    return (
+        DivIcon,
+        LinearColormap,
+        MarkerCluster,
+        Path,
+        folium,
+        json,
+        mo,
+        np,
+        pd,
+    )
 
 
 @app.cell
@@ -388,6 +399,50 @@ def _(LinearColormap, folium):
 
 
 @app.cell
+def _(Path, folium, json):
+    def add_geojson_layers(
+        m,
+        layers_info,
+        weight=5,
+        opacity=0.7
+    ):
+
+        for layer in layers_info:
+            file_path = Path(layer["file"])
+            layer_name = layer.get("name", file_path.stem)
+
+            # FeatureGroup, damit Layer einzeln toggelbar sind
+            fg = folium.FeatureGroup(name=layer_name, show=False).add_to(m)
+
+            try:
+                with open(file_path, "r", encoding="utf-8") as f:
+                    geojson_data = json.load(f)
+            except FileNotFoundError:
+                print(f"⚠️ Datei nicht gefunden: {file_path}")
+                continue
+
+            for feat in geojson_data.get("features", []):
+                geom = feat.get("geometry")
+                props = feat.get("properties", {})
+
+                if geom and geom["type"] == "LineString":
+                    folium.PolyLine(
+                        locations=[[lat, lon] for lon, lat in geom["coordinates"]],
+                        color=layer["color"],
+                        weight=weight,
+                        opacity=opacity,
+                        tooltip=folium.Tooltip(
+                            f"Surface: {props.get('surface', 'n/a')}<br>"
+                            f"Segregated: {props.get('segregated', 'n/a')}<br>"
+                            f"Traffic sign: {props.get('traffic_sign', 'n/a')}"
+                        )
+                    ).add_to(fg)
+
+        return m
+    return (add_geojson_layers,)
+
+
+@app.cell
 def _(folium, json):
     def add_unlit_bike_paths(m, geojson_file="unbeleuchteteRadWege.geojson", layer_name="Unlit Bike Paths"):
         """
@@ -418,16 +473,24 @@ def _(folium, json):
                     )
                 ).add_to(unlit_layer)
         return unlit_layer
-    return (add_unlit_bike_paths,)
+    return
 
 
 @app.cell
 def _(mo):
     mo.md(
         r"""
-    # Raddaten Hackathon
+    #  🥴 🤕 💀 <br/>Wie gefährlich ist Potsdam für Radfahrende?!
 
-    🥴🥴🥴🥴🥴🥴🥴🥴🥴
+    Im Zeitraum **2023–2024** wurden **745 Unfälle** mit Fahrradbeteiligung registriert, davon ereigneten sich **687 leichte**, **56 schwere** und **2 tödliche Unfälle**. 
+
+    Dies entspricht einem Durchschnitt von etwa **ein Unfall pro Tag** – mit tragischerweise **einem tödlichen Unfall pro Jahr**.
+
+    <p style="text-align:center;">
+
+    ![](public/image.png)  
+
+    </p>
     """
     )
     return
@@ -437,9 +500,9 @@ def _(mo):
 def _(
     MarkerCluster,
     add_accident_data,
+    add_geojson_layers,
     add_knoten_data,
     add_radplus_data,
-    add_unlit_bike_paths,
     filtered_df,
     folium,
     radplus_data,
@@ -469,6 +532,7 @@ def _(
             name="OpenRailwayMap",
             subdomains=["a", "b", "c"],
             max_zoom=19,
+            show=False,
             overlay=True,   # Important: this is a toggleable overlay
             control=True
         ).add_to(m)
@@ -478,7 +542,7 @@ def _(
         deaths_layer = folium.FeatureGroup(name="Deaths", show=True)
 
         # MarkerCluster for non-fatal accidents
-        accidents_cluster = MarkerCluster(name="Accidents").add_to(m)
+        accidents_cluster = MarkerCluster(name="Accidents", show=False).add_to(m)
 
         for _, row in filtered_df.iterrows():
             add_accident_data(row, deaths_layer, accidents_cluster)
@@ -488,19 +552,33 @@ def _(
 
         ########## Add (manual) Verkehszählung: Knoten/Brücken Data
         # FeatureGroup for toggle
-        knoten_layer = folium.FeatureGroup(name="Traffic Counts").add_to(m)
+        knoten_layer = folium.FeatureGroup(name="Traffic Counts", show=False).add_to(m)
         add_knoten_data(knoten_layer)
 
         ####### Add DB RadPlus data
         # Options: "speed", "speed_min", "speed_25", "speed_median", "speed_75", "speed_max"
         # 🎨 Create feature layer
-        radplus_layer_mean = folium.FeatureGroup(name=f"DB Rad+ (Mean, >100)").add_to(m)
+        radplus_layer_mean = folium.FeatureGroup(name=f"DB Rad+ (Mean, >100)", show=False).add_to(m)
         add_radplus_data(m, radplus_layer_mean, radplus_data, "speed", min_count_threshold=100)
 
-        radplus_layer_median = folium.FeatureGroup(name=f"DB Rad+ (Med<10, >100)").add_to(m)
+        radplus_layer_median = folium.FeatureGroup(name=f"DB Rad+ (Med<10, >100)", show=False).add_to(m)
         add_radplus_data(m, radplus_layer_median, radplus_data, "speed_median", min_count_threshold=100, speed_threshold=10)
 
-        unlit_layer = add_unlit_bike_paths(m, "unbeleuchteteRadWege.geojson", "Unlit Bike Paths")
+        #unlit_layer = add_unlit_bike_paths(m, "unbeleuchteteRadWege.geojson", "Unlit Bike Paths")
+
+        layers = [
+            {"file": "unbeleuchteteRadWege.geojson", "name": "Blindfahrt: Unbeleuchtete Radwege","color": "#9B5DE5"},
+            {"file": "Laub.geojson", "name": "Blätterchaos: Laub auf Radwegen", "color": "#C65CCD"},
+            {"file": "SchmaleRadwege.geojson", "name": "Engpass: Schmale Radwege (<1,5m)", "color": "#F15BB5"},
+            {"file": "ParkstreifenRechts.geojson", "name": "Dooring-Alarm: parkende Autos","color":"#3DA3E8"},
+            {"file": "SchlechterUntergrund.geojson", "name": "Holperpiste: Mangelhafter Straßenzustand", "color":"#99E6FF"},
+            {"file": "AbbiegenKreuzungen.geojson", "name": "Kreuzungsdrama: potenzielle Abbiegekonflikte", "color":"#00D8E7"},
+            {"file": "Straßen-schneller-als-30.geojson", "name": "Vollgaszone: Autos fahren 50 km/h","color":"#00F5D4"},
+    
+        ]
+    
+        add_geojson_layers(m, layers)
+
 
         # Add layer control
         folium.LayerControl().add_to(m)
