@@ -171,6 +171,36 @@ def _(
 
 @app.cell
 def _(DivIcon, folium, pd):
+    def get_marker_svg(size):
+        return f"""
+
+    <svg
+       width="{str(size)}mm"
+       height="{str(size)}mm"
+       viewBox="0 0 210 297"
+       version="1.1"
+       id="svg1"
+       xml:space="preserve"
+       inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
+       sodipodi:docname="marker.svg"
+       xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+       xmlns="http://www.w3.org/2000/svg"
+       xmlns:svg="http://www.w3.org/2000/svg"><defs
+         id="defs1" /><g
+         inkscape:label="Layer 1"
+         inkscape:groupmode="layer"
+         id="layer1"><path
+           id="path1"
+           style="fill:#333333;stroke-width:1.72024"
+           d="M 105.45713 0.84749349 C 98.368597 0.8355104 91.247348 1.3691799 83.99384 2.4437785 C 40.623829 8.8690054 12.242628 33.076287 3.175 71.378072 C -1.0782704 89.343992 -0.19127461 117.59838 5.2162191 136.38599 C 14.172112 167.50209 37.698108 208.62431 75.738013 259.65754 C 83.088967 269.51938 92.476288 281.64951 96.721228 286.77009 C 97.986066 288.29583 100.35337 291.18854 101.98137 293.19864 C 104.17663 295.90917 104.94292 296.64082 105.45713 296.41808 L 105.45713 159.91789 C 103.96795 159.98138 102.93226 159.91273 101.07032 159.73547 C 71.840923 156.95379 50.495433 133.95328 50.472371 105.21528 C 50.465671 96.819551 52.451141 87.888491 55.805379 81.225016 C 59.420094 74.044109 66.147656 65.941582 72.349072 61.302201 C 78.210237 56.917352 86.68867 53.1168 94.239726 51.487813 C 97.040022 50.883707 101.26289 50.603821 105.45713 50.635669 L 105.45713 0.84749349 z " /><path
+           id="path1-9"
+           style="fill:#4d4d4d;stroke-width:1.72024"
+           d="M 105.45713 0.84749349 L 105.45713 50.635669 C 105.47465 50.635802 105.4918 50.635525 105.50932 50.635669 L 105.50932 50.636186 C 109.72083 50.670776 113.89798 51.019592 116.5686 51.671265 C 134.02168 55.930071 146.95677 66.154477 154.38282 81.560396 C 158.54458 90.194273 160.11255 98.007565 159.67656 107.94483 C 158.48666 135.06652 137.32287 156.96431 109.7778 159.57372 C 107.80221 159.76085 106.51524 159.87277 105.45713 159.91789 L 105.45713 296.41808 C 105.50211 296.3986 105.54492 296.37191 105.58684 296.3385 C 105.94213 296.05525 110.55997 290.39854 115.84874 283.76821 C 157.03459 232.13505 187.30969 184.28859 200.47458 150.02443 C 204.87108 138.58167 206.87323 130.57797 208.841 116.58823 C 209.99844 108.36005 210.0159 88.855161 208.87304 81.306148 C 207.94562 75.180151 205.82033 66.185093 204.1493 61.316671 C 202.54127 56.631828 198.13099 47.495845 195.54104 43.484684 C 183.05823 24.151884 164.08817 11.116985 139.74031 5.1423218 C 130.31292 2.828961 121.09913 1.4545036 111.88103 1.0082072 C 109.74073 0.90458455 107.60066 0.85111711 105.45713 0.84749349 z " /></g></svg>
+
+    """
+
+    scale = 0.2
+
     def add_knoten_data(knoten_layer):
         # Load CSV
         df = pd.read_csv("merged_knoten_data.csv")
@@ -178,7 +208,8 @@ def _(DivIcon, folium, pd):
             lat, lon = map(float, row["Geo Point"].split(","))
 
             # Non-linear scaling for size
-            size = 15 + (row["Summe"] ** 0.5) / 2  # adjust 15/base and /2 as needed
+            size = scale * (row["Summe"] ** 0.5)
+            print(size)
 
             popup_html = f"<b>{row['Name']}</b><br>Year: {row['Jahr']}<br>Count: {row['Summe']}"
 
@@ -188,9 +219,7 @@ def _(DivIcon, folium, pd):
                 icon=DivIcon(
                     icon_size=(size, size),
                     icon_anchor=(size//2, size),  # anchor at bottom
-                    html=f"""<div style="font-size:{size}px; line-height:1; color:green;">
-                                📍
-                             </div>"""
+                    html=f"<div>{get_marker_svg(size)}</div>"
                 ),
                 popup=folium.Popup(popup_html, max_width=250)
             ).add_to(knoten_layer)
@@ -214,7 +243,7 @@ def _(DivIcon, folium, pd):
             lat, lon = row["latitude"], row["longitude"]
 
             # Scale size relative to sum_value (same formula as before)
-            size = 15 + (row["sum_value"] ** 0.5) / 2  # adjust scaling if needed
+            size = scale * (row["sum_value"] ** 0.5)  # adjust scaling if needed
 
             popup_html = f"<b>{row['bridge_name'].title()}</b><br>Year: {row['year_full']}<br>Sum: {row['sum_value']}"
 
@@ -223,9 +252,8 @@ def _(DivIcon, folium, pd):
                 icon=DivIcon(
                     icon_size=(size, size),
                     icon_anchor=(size//2, size),
-                    html=f"""<div style="font-size:{size}px; line-height:1; color:green;">
-                                📍
-                             </div>"""
+                    html=f"<div>{get_marker_svg(size)}</div>"
+
                 ),
                 popup=folium.Popup(popup_html, max_width=250)
             ).add_to(knoten_layer)
