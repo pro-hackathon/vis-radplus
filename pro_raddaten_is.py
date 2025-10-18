@@ -209,7 +209,6 @@ def _(DivIcon, folium, pd):
 
             # Non-linear scaling for size
             size = scale * (row["Summe"] ** 0.5)
-            print(size)
 
             popup_html = f"<b>{row['Name']}</b><br>Year: {row['Jahr']}<br>Count: {row['Summe']}"
 
