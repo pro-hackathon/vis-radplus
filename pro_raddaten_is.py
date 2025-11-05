@@ -217,7 +217,6 @@ def _(DivIcon, folium, pd):
 
             # Non-linear scaling for size
             size = scale * (row["Summe"] ** 0.5)
-            print(size)
 
             popup_html = f"<b>{row['Name']}</b><br>Year: {row['Jahr']}<br>Count: {row['Summe']}"
 
@@ -290,7 +289,6 @@ def _(json, np, pd):
         Given a histogram of counts per speed bin (0..29 km/h),
         return min, 25%, median, 75%, max, and mean speeds.
         """
-        print("Histogram length:", len(hist_counts))  # should be 30
 
         if not hist_counts or sum(hist_counts) == 0:
             return pd.Series({
@@ -430,7 +428,6 @@ def _(LinearColormap, folium):
                 opacity=0.8,
                 tooltip=folium.Tooltip(tooltip_text)
             ).add_to(radplus_layer)
-
     return (add_radplus_data,)
 
 
@@ -479,40 +476,6 @@ def _(Path, folium, json):
 
 
 @app.cell
-def _(folium, json):
-    def add_unlit_bike_paths(m, geojson_file="unbeleuchteteRadWege.geojson", layer_name="Unlit Bike Paths"):
-        """
-        Add unlit bicycle paths from a GeoJSON file to a Folium map as a separate layer.
-        """
-        # Create a feature group for toggling
-        unlit_layer = folium.FeatureGroup(name=f"{layer_name} 🛣️").add_to(m)
-
-        # Load GeoJSON
-        with open(geojson_file, "r", encoding="utf-8") as f:
-            geojson_data = json.load(f)
-
-        # Add each LineString feature
-        for feat in geojson_data["features"]:
-            geom = feat["geometry"]
-            props = feat.get("properties", {})
-
-            if geom["type"] == "LineString":
-                folium.PolyLine(
-                    locations=[[lat, lon] for lon, lat in geom["coordinates"]],
-                    color="darkblue",          # pick a color that stands out
-                    weight=5,                  # thickness of the line
-                    opacity=0.7,
-                    tooltip=folium.Tooltip(
-                        f"Surface: {props.get('surface', 'n/a')}<br>"
-                        f"Segregated: {props.get('segregated', 'n/a')}<br>"
-                        f"Traffic sign: {props.get('traffic_sign', 'n/a')}"
-                    )
-                ).add_to(unlit_layer)
-        return unlit_layer
-    return
-
-
-@app.cell
 def _(mo):
     mo.Html(
     """
@@ -520,9 +483,6 @@ def _(mo):
       /* --- General page styling --- */
       body {
         font-family: 'Helvetica Neue', Arial, sans-serif;
-        background-color: #2e3032; /* dark background */
-        color: #f4f4f4;            /* light text color */
-        text-align: center;        /* center-align text */
         padding: 50px 20px;        /* space around content */
       }
 
@@ -557,7 +517,9 @@ def _(mo):
       .legend {
         font-size: 1em;
         margin-top: 0em;
-        color: #e0e0e0;
+        max-width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
       }
     </style>
     </head>
@@ -613,6 +575,7 @@ def _(
             name="Stadia Alidade Smooth",
             min_zoom=0,
             max_zoom=20,
+            show=False,
             control=True
         ).add_to(m)  # Add as base layer
 
@@ -650,22 +613,22 @@ def _(
         ####### Add DB RadPlus data
         # Options: "speed", "speed_min", "speed_25", "speed_median", "speed_75", "speed_max"
         # 🎨 Create feature layer
-        radplus_layer_mean = folium.FeatureGroup(name=f"DB Rad+ (Mean, >100)", show=False).add_to(m)
-        add_radplus_data(m, radplus_layer_mean, radplus_data, "speed", min_count_threshold=100)
+        radplus_layer_mean = folium.FeatureGroup(name=f"DB Rad+ (Mean, >500)", show=False).add_to(m)
+        add_radplus_data(m, radplus_layer_mean, radplus_data, "speed", min_count_threshold=500)
 
-        radplus_layer_median = folium.FeatureGroup(name=f"DB Rad+ (Med<10, >100)", show=False).add_to(m)
-        add_radplus_data(m, radplus_layer_median, radplus_data, "speed_median", min_count_threshold=100, speed_threshold=10)
+        radplus_layer_median = folium.FeatureGroup(name=f"DB Rad+ (Med<10, >500)", show=False).add_to(m)
+        add_radplus_data(m, radplus_layer_median, radplus_data, "speed_median", min_count_threshold=500, speed_threshold=10)
 
         #unlit_layer = add_unlit_bike_paths(m, "unbeleuchteteRadWege.geojson", "Unlit Bike Paths")
 
         layers = [
-            {"file": "unbeleuchteteRadWege.geojson", "name": "Blindfahrt: Unbeleuchtete Radwege","color": "#9B5DE5"},
-            {"file": "Laub.geojson", "name": "Blätterchaos: Laub auf Radwegen", "color": "#C65CCD"},
-            {"file": "SchmaleRadwege.geojson", "name": "Engpass: Schmale Radwege (<1,5m)", "color": "#F15BB5"},
-            {"file": "ParkstreifenRechts.geojson", "name": "Dooring-Alarm: parkende Autos","color":"#3DA3E8"},
-            {"file": "SchlechterUntergrund.geojson", "name": "Holperpiste: Mangelhafter Straßenzustand", "color":"#99E6FF"},
-            {"file": "AbbiegenKreuzungen.geojson", "name": "Kreuzungsdrama: potenzielle Abbiegekonflikte", "color":"#00D8E7"},
-            {"file": "Straßen-schneller-als-30.geojson", "name": "Vollgaszone: Autos fahren 50 km/h","color":"#00F5D4"},
+            {"file": "osm_data/unbeleuchteteRadWege.geojson", "name": "Blindfahrt: Unbeleuchtete Radwege","color": "#9B5DE5"},
+            {"file": "osm_data/Laub.geojson", "name": "Blätterchaos: Laub auf Radwegen", "color": "#C65CCD"},
+            {"file": "osm_data/SchmaleRadwege.geojson", "name": "Engpass: Schmale Radwege (<1,5m)", "color": "#F15BB5"},
+            {"file": "osm_data/ParkstreifenRechts.geojson", "name": "Dooring-Alarm: parkende Autos","color":"#3DA3E8"},
+            {"file": "osm_data/SchlechterUntergrund.geojson", "name": "Holperpiste: Mangelhafter Straßenzustand", "color":"#99E6FF"},
+            {"file": "osm_data/AbbiegenKreuzungen.geojson", "name": "Kreuzungsdrama: potenzielle Abbiegekonflikte", "color":"#00D8E7"},
+            {"file": "osm_data/Straßen-schneller-als-30.geojson", "name": "Vollgaszone: Autos fahren 50 km/h","color":"#00F5D4"},
 
         ]
 
@@ -676,7 +639,7 @@ def _(
         folium.LayerControl().add_to(m)
 
         # Save map
-        m.save("potsdam_bicycle_accidents_fatal_icon_map.html")
+        m.save("maps/potsdam_bicycle_accidents_fatal_icon_map.html")
         print("Done")
 
         return m

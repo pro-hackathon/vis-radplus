@@ -1,0 +1,1556 @@
+{
+  "type": "FeatureCollection",
+  "generator": "overpass-turbo",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2025-10-17T16:13:45Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/4778106",
+        "cycleway:both": "no",
+        "highway": "residential",
+        "lane_markings": "no",
+        "lit": "yes",
+        "maxspeed": "30",
+        "maxspeed:type": "DE:zone30",
+        "name": "Wilhelm-Staab-Straße",
+        "name:1784": "Hoditzstraße",
+        "name:etymology:wikidata": "Q2575202",
+        "name:etymology:wikipedia": "de:Wilhelm Staab",
+        "old_name": "Kleine Jägerstraße",
+        "oneway": "yes",
+        "oneway:bicycle": "no",
+        "parking:condition:both": "free; residents",
+        "parking:condition:both:fee_per_hour": "3 EUR",
+        "parking:condition:both:residents": "150",
+        "parking:condition:right:conditional": "ticket @ (Mo-Fr 08:00-20:00, PH,Sa,Su 08:00-16:00)",
+        "parking:lane:left:parallel": "on_street",
+        "parking:lane:right:diagonal": "on_street",
+        "parking:left": "yes",
+        "parking:left:orientation": "parallel",
+        "parking:right": "yes",
+        "parking:right:orientation": "diagonal",
+        "postal_code": "14467",
+        "sidewalk": "both",
+        "sidewalk:both:surface": "paving_stones",
+        "smoothness": "bad",
+        "surface": "sett"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.0565901,
+            52.3996068
+          ],
+          [
+            13.0565853,
+            52.3995926
+          ],
+          [
+            13.0565658,
+            52.3995349
+          ],
+          [
+            13.056259,
+            52.3986391
+          ]
+        ]
+      },
+      "id": "way/4778106"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/4779270",
+        "highway": "residential",
+        "lit": "yes",
+        "maxspeed": "30",
+        "name": "Lennéstraße",
+        "old_name:-1878": "Viehmästerstraße",
+        "parking:condition:right:residents": "310",
+        "parking:lane:right": "parallel",
+        "parking:lane:right:parallel": "on_street",
+        "postal_code": "14471",
+        "sidewalk": "no",
+        "source:maxspeed": "DE:zone30",
+        "surface": "asphalt",
+        "width": "5"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.0323868,
+            52.3979002
+          ],
+          [
+            13.0320322,
+            52.3979645
+          ]
+        ]
+      },
+      "id": "way/4779270"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/4779273",
+        "highway": "residential",
+        "lit": "no",
+        "maxspeed": "30",
+        "name": "Lennéstraße",
+        "parking:condition:right": "residents",
+        "parking:lane:right": "perpendicular",
+        "postal_code": "14471",
+        "sidewalk": "no",
+        "smoothness": "bad",
+        "source:maxspeed": "DE:zone30",
+        "surface": "asphalt",
+        "width": "5"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.0320679,
+            52.3978754
+          ],
+          [
+            13.0321425,
+            52.3978432
+          ],
+          [
+            13.0322429,
+            52.3978445
+          ],
+          [
+            13.0323549,
+            52.397868
+          ]
+        ]
+      },
+      "id": "way/4779273"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/8659567",
+        "highway": "residential",
+        "lit": "yes",
+        "maxspeed": "30",
+        "maxspeed:type": "DE:zone30",
+        "name": "Burgstraße",
+        "parking:left": "yes",
+        "parking:left:orientation": "parallel",
+        "parking:right": "yes",
+        "parking:right:orientation": "perpendicular",
+        "postal_code": "14467",
+        "sidewalk": "both",
+        "smoothness": "bad",
+        "surface": "sett"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.0684155,
+            52.3970292
+          ],
+          [
+            13.0689216,
+            52.3970596
+          ],
+          [
+            13.0693918,
+            52.3970887
+          ],
+          [
+            13.0697146,
+            52.3971076
+          ]
+        ]
+      },
+      "id": "way/8659567"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/8661734",
+        "highway": "residential",
+        "lit": "yes",
+        "maxspeed": "30",
+        "maxspeed:type": "DE:zone30",
+        "name": "Heilig-Geist-Straße",
+        "old_name:1724-1786": "Kellerstraße",
+        "old_name:1786-1958": "Heilig-Geist-Straße",
+        "old_name:1958-1993": "Walter-Junker-Straße",
+        "parking:lane:right:parallel": "street_side",
+        "parking:left": "no",
+        "parking:left:restriction": "no_stopping",
+        "parking:right": "yes",
+        "parking:right:orientation": "parallel",
+        "postal_code": "14467",
+        "sidewalk": "both",
+        "smoothness": "excellent",
+        "surface": "asphalt"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.0693672,
+            52.4008462
+          ],
+          [
+            13.0695092,
+            52.4002137
+          ],
+          [
+            13.0695932,
+            52.3998394
+          ]
+        ]
+      },
+      "id": "way/8661734"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/10367160",
+        "highway": "residential",
+        "lit": "yes",
+        "maxspeed": "30",
+        "name": "Plantagenplatz",
+        "name:etymology:wikidata": "Q188913",
+        "oneway": "yes",
+        "oneway:bicycle": "no",
+        "parking:lane:left": "diagonal",
+        "parking:lane:left:diagonal": "street_side",
+        "parking:lane:right": "parallel",
+        "parking:lane:right:parallel": "on_street",
+        "postal_code": "14482",
+        "surface": "sett"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.1018061,
+            52.3951552
+          ],
+          [
+            13.1016132,
+            52.3948791
+          ],
+          [
+            13.1013588,
+            52.394522
+          ],
+          [
+            13.1013277,
+            52.3944783
+          ]
+        ]
+      },
+      "id": "way/10367160"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/11017685",
+        "cycleway:both": "no",
+        "highway": "residential",
+        "lit": "yes",
+        "maxspeed": "30",
+        "name": "Gaußstraße",
+        "name:etymology:wikidata": "Q6722",
+        "parking:lane:left": "parallel",
+        "parking:lane:left:parallel": "on_street",
+        "parking:lane:right": "perpendicular",
+        "parking:lane:right:perpendicular": "street_side",
+        "postal_code": "14480",
+        "sidewalk": "left",
+        "smoothness": "intermediate",
+        "source:width": "ARCore",
+        "surface": "concrete",
+        "width": "4.2"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.1420789,
+            52.3753738
+          ],
+          [
+            13.1420857,
+            52.3750616
+          ],
+          [
+            13.1420938,
+            52.374719
+          ],
+          [
+            13.1420979,
+            52.3745368
+          ],
+          [
+            13.1421066,
+            52.3741323
+          ],
+          [
+            13.142118,
+            52.3736948
+          ],
+          [
+            13.1421211,
+            52.3735838
+          ],
+          [
+            13.142486,
+            52.3735859
+          ],
+          [
+            13.1439499,
+            52.373594
+          ],
+          [
+            13.143948,
+            52.3736571
+          ],
+          [
+            13.1439431,
+            52.3738192
+          ],
+          [
+            13.1439383,
+            52.3739774
+          ],
+          [
+            13.1439457,
+            52.3740257
+          ]
+        ]
+      },
+      "id": "way/11017685"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/11284916",
+        "highway": "residential",
+        "maxspeed": "30",
+        "name": "Bertolt-Brecht-Straße",
+        "oneway": "yes",
+        "oneway:bicycle": "no",
+        "parking:lane:left": "parallel",
+        "parking:lane:left:parallel": "on_street",
+        "parking:lane:right": "diagonal",
+        "parking:lane:right:diagonal": "street_side",
+        "postal_code": "14478",
+        "surface": "asphalt"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.0968461,
+            52.3666208
+          ],
+          [
+            13.0972516,
+            52.3663783
+          ],
+          [
+            13.0976993,
+            52.366105
+          ],
+          [
+            13.0977477,
+            52.3660772
+          ],
+          [
+            13.0977911,
+            52.3660523
+          ],
+          [
+            13.0982489,
+            52.3657902
+          ],
+          [
+            13.0987649,
+            52.3654966
+          ],
+          [
+            13.0989724,
+            52.3653779
+          ]
+        ]
+      },
+      "id": "way/11284916"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/13012393",
+        "cycleway:both": "no",
+        "highway": "residential",
+        "lane_markings": "no",
+        "lit": "yes",
+        "maxspeed": "50",
+        "name": "Georg-Hermann-Allee",
+        "name:etymology:wikidata": "Q91170",
+        "oneway": "yes",
+        "parking:lane:right:parallel": "street_side",
+        "parking:right": "yes",
+        "parking:right:orientation": "parallel",
+        "postal_code": "14469",
+        "sidewalk": "right",
+        "surface": "asphalt"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.0500252,
+            52.4142971
+          ],
+          [
+            13.0500574,
+            52.4143587
+          ],
+          [
+            13.0501367,
+            52.4144946
+          ],
+          [
+            13.0503582,
+            52.4149995
+          ],
+          [
+            13.0503749,
+            52.4150376
+          ],
+          [
+            13.0504095,
+            52.4153801
+          ],
+          [
+            13.050434,
+            52.4158368
+          ]
+        ]
+      },
+      "id": "way/13012393"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/13015689",
+        "highway": "residential",
+        "lit": "yes",
+        "maxspeed": "30",
+        "name": "Viereckremise",
+        "parking:lane:right": "perpendicular",
+        "parking:lane:right:perpendicular": "street_side",
+        "surface": "asphalt"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.0518515,
+            52.4247522
+          ],
+          [
+            13.0518521,
+            52.424821
+          ],
+          [
+            13.0518524,
+            52.4248532
+          ],
+          [
+            13.0518527,
+            52.4248831
+          ],
+          [
+            13.0518532,
+            52.4249399
+          ],
+          [
+            13.0518572,
+            52.4253703
+          ],
+          [
+            13.0518577,
+            52.4254264
+          ],
+          [
+            13.0518798,
+            52.425995
+          ],
+          [
+            13.0518871,
+            52.4261821
+          ],
+          [
+            13.0518628,
+            52.4265644
+          ],
+          [
+            13.0517613,
+            52.4269439
+          ],
+          [
+            13.0520623,
+            52.4269428
+          ],
+          [
+            13.0524284,
+            52.4269383
+          ],
+          [
+            13.0527854,
+            52.4269339
+          ],
+          [
+            13.053032,
+            52.4269309
+          ],
+          [
+            13.0531395,
+            52.4269298
+          ],
+          [
+            13.0535553,
+            52.4269254
+          ],
+          [
+            13.053964,
+            52.42692
+          ],
+          [
+            13.054041,
+            52.4269183
+          ]
+        ]
+      },
+      "id": "way/13015689"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/13015857",
+        "highway": "residential",
+        "lit": "yes",
+        "maxspeed": "30",
+        "name": "Nedlitzer Holz",
+        "name:etymology:wikidata": "Q615831",
+        "parking:lane:left": "perpendicular",
+        "parking:lane:left:perpendicular": "street_side",
+        "parking:lane:right": "parallel",
+        "parking:lane:right:parallel": "street_side",
+        "surface": "asphalt"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.0529673,
+            52.4254159
+          ],
+          [
+            13.0529706,
+            52.4254941
+          ],
+          [
+            13.0529745,
+            52.4255885
+          ],
+          [
+            13.0529841,
+            52.425817
+          ],
+          [
+            13.0529937,
+            52.4260441
+          ],
+          [
+            13.0529992,
+            52.4261749
+          ],
+          [
+            13.0530051,
+            52.4263155
+          ],
+          [
+            13.053015,
+            52.4265523
+          ],
+          [
+            13.0530212,
+            52.4266996
+          ],
+          [
+            13.0530276,
+            52.4268514
+          ],
+          [
+            13.053032,
+            52.4269309
+          ]
+        ]
+      },
+      "id": "way/13015857"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/22876984",
+        "highway": "residential",
+        "lit": "yes",
+        "maxspeed": "30",
+        "maxspeed:source": "DE:zone:30",
+        "name": "Lennéstraße",
+        "oneway": "yes",
+        "oneway:bicycle": "no",
+        "parking:condition:right": "ticket",
+        "parking:condition:right:residents": "300",
+        "parking:condition:right:time_interval": "Mo-Fr 09:00-18:00; Sa 09:00-16:00",
+        "parking:lane:right": "parallel",
+        "parking:lane:right:parallel": "on_street",
+        "postal_code": "14471",
+        "sidewalk": "right",
+        "smoothness": "bad",
+        "source:width": "ARCore",
+        "surface": "sett",
+        "width": "7.7"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.0416875,
+            52.3985356
+          ],
+          [
+            13.0415932,
+            52.3985281
+          ],
+          [
+            13.0415536,
+            52.3985246
+          ],
+          [
+            13.0413252,
+            52.3985057
+          ],
+          [
+            13.0405114,
+            52.3984647
+          ],
+          [
+            13.0399228,
+            52.398435
+          ],
+          [
+            13.0393435,
+            52.3984065
+          ],
+          [
+            13.0390575,
+            52.3983481
+          ]
+        ]
+      },
+      "id": "way/22876984"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/28001529",
+        "highway": "residential",
+        "lit": "yes",
+        "maxspeed": "30",
+        "name": "Plantagenplatz",
+        "name:etymology:wikidata": "Q188913",
+        "parking:lane:left": "parallel",
+        "parking:lane:left:parallel": "on_street",
+        "parking:lane:right": "diagonal",
+        "parking:lane:right:diagonal": "street_side",
+        "postal_code": "14482",
+        "surface": "unhewn_cobblestone"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.1009865,
+            52.3940026
+          ],
+          [
+            13.1011543,
+            52.3942397
+          ]
+        ]
+      },
+      "id": "way/28001529"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/28451424",
+        "highway": "residential",
+        "lit": "yes",
+        "maxspeed": "30",
+        "name": "Plantagenplatz",
+        "name:etymology:wikidata": "Q188913",
+        "parking:lane:left": "parallel",
+        "parking:lane:left:parallel": "on_street",
+        "parking:lane:right": "diagonal",
+        "parking:lane:right:diagonal": "street_side",
+        "postal_code": "14482",
+        "surface": "sett"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.1011543,
+            52.3942397
+          ],
+          [
+            13.101207,
+            52.3943088
+          ],
+          [
+            13.1012799,
+            52.3944037
+          ],
+          [
+            13.1013277,
+            52.3944783
+          ]
+        ]
+      },
+      "id": "way/28451424"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/85852894",
+        "highway": "residential",
+        "lane_markings": "no",
+        "lit": "yes",
+        "maxspeed": "30",
+        "name": "Spornstraße",
+        "parking:condition:left": "no_parking",
+        "parking:condition:right": "free; residents",
+        "parking:condition:right:conditional": "ticket @ (Mo-Fr 08:00-20:00; PH,Sa-Su 08:00-16:00)",
+        "parking:condition:right:fee_per_hour": "3 EUR",
+        "parking:condition:right:residents": "150",
+        "parking:lane:right:perpendicular": "on_street",
+        "parking:left": "no",
+        "parking:right": "yes",
+        "parking:right:orientation": "parallel",
+        "postal_code": "14467",
+        "sidewalk": "left",
+        "smoothness": "intermediate",
+        "surface": "sett"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.0523894,
+            52.3968692
+          ],
+          [
+            13.0526933,
+            52.3968324
+          ],
+          [
+            13.052808,
+            52.3968177
+          ]
+        ]
+      },
+      "id": "way/85852894"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/103833057",
+        "bicycle": "use_sidepath",
+        "cycleway:both": "separate",
+        "foot": "use_sidepath",
+        "highway": "tertiary",
+        "lanes": "3",
+        "lanes:backward": "1",
+        "lanes:forward": "2",
+        "lit": "yes",
+        "maxspeed": "50",
+        "name": "Babelsberger Straße",
+        "parking:right": "yes",
+        "parking:right:orientation": "parallel",
+        "sidewalk": "separate",
+        "smoothness": "excellent",
+        "surface": "asphalt"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.0725765,
+            52.3925154
+          ],
+          [
+            13.070951,
+            52.392576
+          ],
+          [
+            13.0703916,
+            52.3925968
+          ]
+        ]
+      },
+      "id": "way/103833057"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/142247752",
+        "highway": "residential",
+        "lit": "yes",
+        "maxspeed": "30",
+        "name": "Newtonstraße",
+        "name:etymology:wikidata": "Q935",
+        "parking:lane:left": "perpendicular",
+        "parking:lane:right": "parallel",
+        "sidewalk:left": "no",
+        "sidewalk:right": "separate",
+        "surface": "concrete"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.1317233,
+            52.3734052
+          ],
+          [
+            13.1317171,
+            52.3736918
+          ],
+          [
+            13.131708,
+            52.3741094
+          ],
+          [
+            13.1316985,
+            52.3745522
+          ],
+          [
+            13.1316906,
+            52.3749147
+          ],
+          [
+            13.1315917,
+            52.3749708
+          ],
+          [
+            13.1314508,
+            52.3749688
+          ]
+        ]
+      },
+      "id": "way/142247752"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/159040725",
+        "highway": "residential",
+        "lit": "yes",
+        "maxspeed": "30",
+        "name": "Lennéstraße",
+        "old_name:-1739": "Jungfernstieg",
+        "old_name:1739-1878": "Gärtnerstraße",
+        "parking:condition:both": "ticket",
+        "parking:condition:both:residents": "300",
+        "parking:condition:both:time_interval": "Mo-Fr 09:00-18:00; Sa 09:00-16:00",
+        "parking:lane:left": "parallel",
+        "parking:lane:left:parallel": "on_street",
+        "parking:lane:right": "perpendicular",
+        "parking:lane:right:perpendicular": "on_street",
+        "postal_code": "14471",
+        "sidewalk": "both",
+        "smoothness": "intermediate",
+        "surface": "sett"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.0370836,
+            52.3980964
+          ],
+          [
+            13.0371414,
+            52.3981073
+          ],
+          [
+            13.037508,
+            52.3981766
+          ],
+          [
+            13.0380775,
+            52.3982843
+          ]
+        ]
+      },
+      "id": "way/159040725"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/159040726",
+        "highway": "residential",
+        "lit": "yes",
+        "maxspeed": "30",
+        "name": "Lennéstraße",
+        "old_name:-1878": "Viehmästerstraße",
+        "parking:condition:right:residents": "310",
+        "parking:lane:right": "parallel",
+        "parking:lane:right:parallel": "on_street",
+        "postal_code": "14471",
+        "sidewalk": "both",
+        "sidewalk:left:surface": "asphalt",
+        "sidewalk:right:surface": "sett",
+        "source:maxspeed": "DE:zone30",
+        "surface": "unhewn_cobblestone",
+        "width": "6"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.0339743,
+            52.3978166
+          ],
+          [
+            13.0338239,
+            52.3978207
+          ],
+          [
+            13.0335011,
+            52.3978306
+          ],
+          [
+            13.033197,
+            52.3978376
+          ],
+          [
+            13.0326848,
+            52.3978518
+          ]
+        ]
+      },
+      "id": "way/159040726"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/359561373",
+        "highway": "residential",
+        "lit": "yes",
+        "maxspeed": "30",
+        "name": "Lilienthalstraße",
+        "name:etymology:wikidata": "Q57162",
+        "parking:left": "yes",
+        "parking:left:orientation": "perpendicular",
+        "parking:right": "yes",
+        "parking:right:orientation": "parallel",
+        "postal_code": "14480",
+        "smoothness": "intermediate",
+        "surface": "concrete"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.1292969,
+            52.3784889
+          ],
+          [
+            13.1292594,
+            52.3784979
+          ],
+          [
+            13.1291649,
+            52.3785189
+          ],
+          [
+            13.129005,
+            52.378559
+          ],
+          [
+            13.128443,
+            52.3786904
+          ],
+          [
+            13.1283437,
+            52.3787143
+          ],
+          [
+            13.1273331,
+            52.3789581
+          ],
+          [
+            13.1271402,
+            52.3790033
+          ],
+          [
+            13.1267217,
+            52.3791046
+          ],
+          [
+            13.1262435,
+            52.3792203
+          ],
+          [
+            13.1260799,
+            52.3792596
+          ],
+          [
+            13.1251698,
+            52.3794859
+          ]
+        ]
+      },
+      "id": "way/359561373"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/395030977",
+        "highway": "tertiary",
+        "name": "Reiherbergstraße",
+        "note": "ehem. K 6910",
+        "parking:lane:right": "diagonal",
+        "parking:lane:right:capacity": "10",
+        "parking:lane:right:diagonal": "street_side",
+        "postal_code": "14476",
+        "surface": "asphalt"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            12.9673736,
+            52.4061722
+          ],
+          [
+            12.9671556,
+            52.4063248
+          ],
+          [
+            12.9670417,
+            52.4064042
+          ]
+        ]
+      },
+      "id": "way/395030977"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/539065168",
+        "cycleway:both": "no",
+        "highway": "residential",
+        "lane_markings": "no",
+        "lit": "yes",
+        "maxspeed": "50",
+        "name": "Französische Straße",
+        "parking:condition:both:residents": "200",
+        "parking:condition:left": "residents",
+        "parking:condition:right": "residents",
+        "parking:lane:left:parallel": "on_street",
+        "parking:lane:right:perpendicular": "street_side",
+        "parking:left": "yes",
+        "parking:left:orientation": "parallel",
+        "parking:right": "yes",
+        "parking:right:orientation": "perpendicular",
+        "postal_code": "14467",
+        "sidewalk:both": "separate",
+        "smoothness": "good",
+        "source:width": "ARCore",
+        "surface": "asphalt",
+        "width": "8.4"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.0626803,
+            52.4003703
+          ],
+          [
+            13.0627108,
+            52.4003473
+          ],
+          [
+            13.0627236,
+            52.4003243
+          ],
+          [
+            13.0627064,
+            52.3996453
+          ],
+          [
+            13.0626726,
+            52.3988558
+          ]
+        ]
+      },
+      "id": "way/539065168"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/678813331",
+        "cycleway:both": "no",
+        "highway": "residential",
+        "lane_markings": "no",
+        "lit": "yes",
+        "maxspeed": "30",
+        "maxspeed:type": "DE:zone30",
+        "name": "Wilhelm-Staab-Straße",
+        "name:1784": "Hoditzstraße",
+        "name:etymology:wikidata": "Q2575202",
+        "name:etymology:wikipedia": "de:Wilhelm Staab",
+        "old_name": "Kleine Jägerstraße",
+        "parking:condition:both": "free; residents",
+        "parking:condition:both:conditional": "ticket @ (Mo-Fr 08:00-20:00, PH,Sa,Su 08:00-16:00)",
+        "parking:condition:both:fee_per_hour": "3 EUR",
+        "parking:condition:both:residents": "150",
+        "parking:lane:left:parallel": "on_street",
+        "parking:lane:right:diagonal": "on_street",
+        "parking:left": "yes",
+        "parking:left:orientation": "parallel",
+        "parking:right": "yes",
+        "parking:right:orientation": "diagonal",
+        "postal_code": "14467",
+        "sidewalk": "both",
+        "sidewalk:both:surface": "paving_stones",
+        "smoothness": "bad",
+        "surface": "sett"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.056259,
+            52.3986391
+          ],
+          [
+            13.0561601,
+            52.3983329
+          ]
+        ]
+      },
+      "id": "way/678813331"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/678820338",
+        "cycleway:both": "no",
+        "highway": "residential",
+        "lane_markings": "no",
+        "lit": "yes",
+        "maxspeed:type": "DE:urban",
+        "name": "Wilhelm-Staab-Straße",
+        "name:1784": "Hoditzstraße",
+        "name:etymology:wikidata": "Q2575202",
+        "name:etymology:wikipedia": "de:Wilhelm Staab",
+        "old_name": "Kleine Jägerstraße",
+        "parking:condition:left": "no_stopping",
+        "parking:condition:right": "free; residents",
+        "parking:condition:right:conditional": "ticket @ (Mo-Fr 08:00-20:00; PH,Sa,Su 08:00-16:00)",
+        "parking:condition:right:fee_per_hour": "3 EUR",
+        "parking:condition:right:residents": "150",
+        "parking:left": "no",
+        "parking:right": "yes",
+        "parking:right:orientation": "diagonal",
+        "postal_code": "14467",
+        "sidewalk": "both",
+        "sidewalk:both:surface": "paving_stones",
+        "smoothness": "bad",
+        "surface": "sett"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.0561601,
+            52.3983329
+          ],
+          [
+            13.0561289,
+            52.3982339
+          ]
+        ]
+      },
+      "id": "way/678820338"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/690860155",
+        "highway": "residential",
+        "lit": "yes",
+        "maxspeed": "30",
+        "name": "Bahnhofstraße",
+        "name:etymology:wikidata": "Q55488",
+        "parking:lane:left:parallel": "on_street",
+        "parking:lane:right:perpendicular": "street_side",
+        "parking:left": "yes",
+        "parking:left:orientation": "parallel",
+        "parking:right": "yes",
+        "parking:right:orientation": "perpendicular",
+        "postal_code": "14480",
+        "sidewalk": "left",
+        "smoothness": "good",
+        "surface": "asphalt"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.1238366,
+            52.3812535
+          ],
+          [
+            13.1244322,
+            52.3811096
+          ],
+          [
+            13.1260523,
+            52.3807181
+          ]
+        ]
+      },
+      "id": "way/690860155"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/690860160",
+        "highway": "residential",
+        "lit": "yes",
+        "maxspeed": "30",
+        "name": "Gagarinstraße",
+        "name:etymology:wikidata": "Q7327",
+        "parking:lane:right:perpendicular": "street_side",
+        "parking:right": "yes",
+        "parking:right:orientation": "perpendicular",
+        "sidewalk": "both",
+        "smoothness": "intermediate",
+        "surface": "concrete"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.1257146,
+            52.3801841
+          ],
+          [
+            13.125956,
+            52.3805658
+          ]
+        ]
+      },
+      "id": "way/690860160"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/690860161",
+        "highway": "residential",
+        "lit": "yes",
+        "maxspeed": "30",
+        "name": "Gagarinstraße",
+        "name:etymology:wikidata": "Q7327",
+        "parking:lane:right:perpendicular": "street_side",
+        "parking:right": "yes",
+        "parking:right:orientation": "perpendicular",
+        "sidewalk": "both",
+        "smoothness": "intermediate",
+        "surface": "concrete"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.1254491,
+            52.3797643
+          ],
+          [
+            13.1255689,
+            52.3799537
+          ]
+        ]
+      },
+      "id": "way/690860161"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/887893161",
+        "cycleway:both": "no",
+        "hgv": "no",
+        "highway": "residential",
+        "lanes": "2",
+        "lit": "yes",
+        "maxspeed": "30",
+        "name": "Kopernikusstraße",
+        "name:etymology:wikidata": "Q619",
+        "old_name:-1905": "Triftstraße",
+        "old_name:1905-1945": "Yorkstraße",
+        "parking:condition:left:vehicles": "motorcar",
+        "parking:condition:right": "free",
+        "parking:lane:left": "parallel",
+        "parking:lane:left:parallel": "half_on_kerb",
+        "parking:lane:right": "parallel",
+        "parking:lane:right:parallel": "on_street",
+        "parking:left:fee": "no",
+        "postal_code": "14482",
+        "sidewalk": "both",
+        "sidewalk:both:surface": "paving_stones",
+        "smoothness": "intermediate",
+        "source:maxspeed": "DE:zone30",
+        "surface": "asphalt"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.0994123,
+            52.389388
+          ],
+          [
+            13.099652,
+            52.3892611
+          ],
+          [
+            13.1000417,
+            52.3890548
+          ]
+        ]
+      },
+      "id": "way/887893161"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/887893831",
+        "cycleway:both": "no",
+        "hgv": "no",
+        "highway": "residential",
+        "lanes": "2",
+        "lit": "yes",
+        "maxspeed": "30",
+        "name": "Kopernikusstraße",
+        "name:etymology:wikidata": "Q619",
+        "old_name:-1905": "Triftstraße",
+        "old_name:1905-1945": "Yorkstraße",
+        "parking:condition:left:vehicles": "motorcar",
+        "parking:condition:right": "free",
+        "parking:lane:left": "parallel",
+        "parking:lane:left:parallel": "half_on_kerb",
+        "parking:lane:right": "parallel",
+        "parking:lane:right:parallel": "on_street",
+        "parking:left:fee": "no",
+        "postal_code": "14482",
+        "sidewalk": "both",
+        "sidewalk:both:surface": "paving_stones",
+        "smoothness": "intermediate",
+        "source:maxspeed": "DE:zone30",
+        "surface": "sett"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.0993543,
+            52.3894187
+          ],
+          [
+            13.0994123,
+            52.389388
+          ]
+        ]
+      },
+      "id": "way/887893831"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/895859851",
+        "cycleway:both": "no",
+        "highway": "tertiary",
+        "lane_markings": "no",
+        "lanes": "2",
+        "lit": "yes",
+        "maxspeed": "50",
+        "name": "Karl-Marx-Straße",
+        "old_name:1870-1938": "Kaiserstraße",
+        "old_name:1938-1945": "Straße der SA",
+        "parking:condition:left": "no_parking",
+        "parking:condition:right": "free",
+        "parking:lane:left": "no",
+        "parking:lane:right": "parallel",
+        "parking:lane:right:parallel": "on_street",
+        "postal_code": "14482",
+        "sidewalk": "both",
+        "surface": "asphalt",
+        "wikidata": "Q100349861",
+        "wikimedia_commons": "Category:Karl-Marx-Straße (Potsdam)"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.1044767,
+            52.4065666
+          ],
+          [
+            13.1042277,
+            52.4065985
+          ]
+        ]
+      },
+      "id": "way/895859851"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1063940517",
+        "cycleway:both": "no",
+        "highway": "tertiary",
+        "lane_markings": "no",
+        "lit": "yes",
+        "maxspeed": "50",
+        "name": "Karl-Marx-Straße",
+        "name:etymology:wikidata": "Q9061",
+        "old_name:1870-1938": "Kaiserstraße",
+        "old_name:1938-1945": "Straße der SA",
+        "parking:condition:left": "no_parking",
+        "parking:condition:right": "free",
+        "parking:lane:left": "no",
+        "parking:lane:right": "parallel",
+        "parking:lane:right:parallel": "on_street",
+        "postal_code": "14482",
+        "sidewalk": "both",
+        "surface": "asphalt",
+        "wikidata": "Q100349861",
+        "wikimedia_commons": "Category:Karl-Marx-Straße (Potsdam)"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.1096086,
+            52.4031832
+          ],
+          [
+            13.1094962,
+            52.4032875
+          ],
+          [
+            13.1094688,
+            52.4033149
+          ]
+        ]
+      },
+      "id": "way/1063940517"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1212715963",
+        "cycleway:both": "no",
+        "highway": "tertiary",
+        "lane_markings": "no",
+        "lanes": "2",
+        "lit": "yes",
+        "maxspeed": "50",
+        "name": "Karl-Marx-Straße",
+        "old_name:1870-1938": "Kaiserstraße",
+        "old_name:1938-1945": "Straße der SA",
+        "parking:condition:left": "no_parking",
+        "parking:condition:right": "free",
+        "parking:lane:left": "no",
+        "parking:lane:right": "parallel",
+        "parking:lane:right:parallel": "on_street",
+        "postal_code": "14482",
+        "sidewalk": "both",
+        "surface": "asphalt",
+        "wikidata": "Q100349861",
+        "wikimedia_commons": "Category:Karl-Marx-Straße (Potsdam)"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.1042277,
+            52.4065985
+          ],
+          [
+            13.1037827,
+            52.4066525
+          ]
+        ]
+      },
+      "id": "way/1212715963"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1272146549",
+        "highway": "residential",
+        "lit": "yes",
+        "maxspeed": "30",
+        "name": "Lennéstraße",
+        "old_name:-1878": "Viehmästerstraße",
+        "parking:condition:right:residents": "310",
+        "parking:lane:right": "parallel",
+        "parking:lane:right:parallel": "on_street",
+        "postal_code": "14471",
+        "sidewalk": "no",
+        "source:maxspeed": "DE:zone30",
+        "surface": "unhewn_cobblestone",
+        "width": "6"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.0326848,
+            52.3978518
+          ],
+          [
+            13.0323868,
+            52.3979002
+          ]
+        ]
+      },
+      "id": "way/1272146549"
+    }
+  ]
+}
