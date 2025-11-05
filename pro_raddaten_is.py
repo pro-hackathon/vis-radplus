@@ -564,7 +564,7 @@ def _(
     def display_accidents_with_fatal_icon(filtered_df):
         # Initialize map
         map_center = [52.398, 13.065]
-        m = folium.Map(location=map_center, zoom_start=12)
+        m = folium.Map(location=map_center, zoom_start=12, attr='&copy; OpenStreetMap contributors | Unfallatlas data: &copy; <a href="https://www.govdata.de/dl-de/by-2-0">Datenlizenz Deutschland – Namensnennung – Version 2.0</a> <a href="https://unfallatlas.statistikportal.de/">Unfallatlas</a> | Traffic Count data: &copy; <a href="https://ckan.urbanedatenplattform-potsdam.de/dataset/verkehrszahlungen">LHP</a> | DB Rad+ data: &copy; DB')
 
         # 1️⃣ Base layer: Stadia Alidade Smooth
         folium.TileLayer(
